@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConstructAI ERP - Dashboard Control Panel</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- SPA Root Container -->
+    <div class="app-layout">
+        
+        <!-- SIDEBAR NAVIGATION -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">ConstructAI<span>.</span></div>
+                <div class="brand-badge">CONSTRUCTION ERP</div>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <a href="#dashboard" class="menu-item active" onclick="switchTab('dashboard')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#parser" class="menu-item" onclick="switchTab('parser')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    <span>AI Invoice Parser</span>
+                </a>
+                <a href="#database" class="menu-item" onclick="switchTab('database')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"></path></svg>
+                    <span>ERP Database</span>
+                </a>
+                <a href="#vendors" class="menu-item" onclick="switchTab('vendors')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <span>Vendors</span>
+                </a>
+                <a href="#analytics" class="menu-item" onclick="switchTab('analytics')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    <span>Analytics</span>
+                </a>
+                <a href="#logs" class="menu-item" onclick="switchTab('logs')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    <span>Audit Logs</span>
+                </a>
+                <a href="#settings" class="menu-item" onclick="switchTab('settings')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <!-- Bottom action (Logout) -->
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="handleLogout()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN WINDOW PORT -->
+        <main class="main-content">
+            
+            <!-- TOP HEADER NAVBAR -->
+            <header class="topbar">
+                <!-- Mobile Sidebar Toggle -->
+                <div class="sidebar-toggle" onclick="toggleSidebarMenu()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </div>
+
+                <!-- Search -->
+                <div class="search-bar-wrapper">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" placeholder="Global search invoices, vendors, logs..." id="global-search" onkeyup="handleGlobalSearch(event)">
+                </div>
+
+                <!-- Right profile controls -->
+                <div class="nav-controls">
+                    <!-- Notifications -->
+                    <div class="notification-trigger" onclick="alert('Notification Center: All ledger nodes sync status is normal.')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                        <span class="badge-dot"></span>
+                    </div>
+                    
+                    <!-- Sandbox Alert indicator removed -->
+
+                    <!-- User Profile -->
+                    <div class="user-profile-badge">
+                        <div class="profile-avatar" id="avatar-letters">AU</div>
+                        <div class="profile-info">
+                            <div class="profile-name" id="user-display-name">Loading User</div>
+                            <div class="profile-role" id="user-display-role">EMPLOYEE</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- CORE VIEW PANEL VIEWS -->
+            <section class="page-content">
+                
+                <!-- VIEW 1: DASHBOARD OVERVIEW -->
+                <section class="view-section" id="view-dashboard">
+                    <div class="view-title-block">
+                        <h1 class="view-title">ConstructAI ERP Console</h1>
+                        <p class="view-subtitle">AI-powered logistics ledger analytics and processing metrics.</p>
+                    </div>
+
+                    <!-- METRICS GRID -->
+                    <div class="dashboard-grid metrics-grid">
+                        <div class="card metric-card">
+                            <div class="metric-top">
+                                <span class="metric-label">Total Invoices</span>
+                                <div class="metric-icon">📁</div>
+                            </div>
+                            <div class="metric-value" id="kpi-total-invoices">0</div>
+                            <div class="metric-growth">Parsed count</div>
+                        </div>
+                        <div class="card metric-card">
+                            <div class="metric-top">
+                                <span class="metric-label">Processed Invoices</span>
+                                <div class="metric-icon green">✅</div>
+                            </div>
+                            <div class="metric-value" id="kpi-processed-invoices">0</div>
+                            <div class="metric-growth green">Status: Approved</div>
+                        </div>
+                        <div class="card metric-card">
+                            <div class="metric-top">
+                                <span class="metric-label">Pending Review</span>
+                                <div class="metric-icon orange">⏳</div>
+                            </div>
+                            <div class="metric-value" id="kpi-pending-review">0</div>
+                            <div class="metric-growth orange">Needs Audit</div>
+                        </div>
+                        <div class="card metric-card">
+                            <div class="metric-top">
+                                <span class="metric-label">Total Expense</span>
+                                <div class="metric-icon purple">💰</div>
+                            </div>
+                            <div class="metric-value" id="kpi-total-expense">₹0.00</div>
+                            <div class="metric-growth purple">Gross ledger sum</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-top">
+                                <span class="metric-label">Total Vendors</span>
+                                <div class="metric-icon blue">🏢</div>
+                            </div>
+                            <div class="metric-value" id="kpi-total-vendors">0</div>
+                            <div class="metric-growth blue">Unique suppliers</div>
+                        </div>
+                    </div>
+
+                    <!-- TWO-COLUMN DASHBOARD SUMMARY -->
+                    <div class="dashboard-double-columns">
+                        <!-- Left Panel: Recent Invoices -->
+                        <div class="dashboard-column-card">
+                            <div class="card-header-bar">
+                                <h3 class="card-headline">Recent Activity</h3>
+                                <button class="btn btn-sm btn-light" onclick="switchTab('database')">View Database</button>
+                            </div>
+                            <div class="table-container">
+                                <table class="custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Vendor</th>
+                                            <th>Invoice No</th>
+                                            <th>Date</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recent-invoices-tbody">
+                                        <!-- Injected via script.js -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Quick stats overview -->
+                        <div class="dashboard-column-card">
+                            <div class="card-header-bar">
+                                <h3 class="card-headline">AI Extraction Health</h3>
+                                <button class="btn btn-sm btn-light" onclick="switchTab('analytics')">View Charts</button>
+                            </div>
+                            <div class="accuracy-metric-container">
+                                <div class="accuracy-circle">
+                                    <div class="accuracy-number" id="kpi-accuracy">98%</div>
+                                    <div class="accuracy-label">Avg AI Accuracy</div>
+                                </div>
+                                <div class="accuracy-details">
+                                    <p>Extraction engine status: <strong id="health-mode-text">Active Gemini AI Core</strong>.</p>
+                                    <p style="margin-top: 10px; font-size: 0.85rem; color: var(--color-text-muted);">Process original PDF and image scans using advanced Gemini models.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 2: AI INVOICE PARSER drag & drop -->
+                <section class="view-section hidden" id="view-parser">
+                    <div class="view-title-block">
+                        <h1 class="view-title">Multimodal AI Invoice Parser</h1>
+                        <p class="view-subtitle">Ingest PDFs, PNGs, and JPEG invoice files. Gemini AI parses items in real-time.</p>
+                    </div>
+
+                    <div class="parser-layout parser-double-layout">
+                        <!-- Left: Uploader & Inputs -->
+                        <div class="parser-side-panel">
+                            <div class="upload-zone-wrapper">
+                                <div class="drag-drop-zone" id="drop-zone">
+                                    <div class="upload-icon">📤</div>
+                                    <h3>Drag & drop invoice document here</h3>
+                                    <p>Accepts PDF, PNG, JPG files up to 10MB</p>
+                                    <input type="file" id="file-input" style="display: none;" accept="image/*,.pdf">
+                                    <button class="btn btn-dark" style="margin-top: 15px;" onclick="document.getElementById('file-input').click()">Browse Files</button>
+                                </div>
+                            </div>
+
+                            <!-- Uploading progress panel -->
+                            <div class="upload-progress-container hidden" id="parser-progress">
+                                <div class="progress-details">
+                                    <span id="progress-filename">invoice_cement_scan.pdf</span>
+                                    <span id="progress-percent">0%</span>
+                                </div>
+                                <div class="progress-bar-track">
+                                    <div class="progress-bar-fill" id="progress-bar-fill"></div>
+                                </div>
+                                <div class="progress-status-log" id="progress-status-log">Reading vectors...</div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Real-time Extraction result -->
+                        <div class="parser-result-panel" id="parser-result-panel">
+                            <div class="result-placeholder" id="parser-result-placeholder">
+                                <div class="placeholder-icon">🤖</div>
+                                <h3>Extraction Output Window</h3>
+                                <p>Structured ledger details and item arrays will appear here after upload.</p>
+                            </div>
+
+                            <!-- Detailed split panels -->
+                            <div class="extraction-card hidden" id="extraction-card">
+                                <div class="extraction-header-row">
+                                    <div>
+                                        <h2 id="ext-vendor-title">No Active Invoice</h2>
+                                        <div class="confidence-badge">Confidence: <span id="ext-confidence">---</span></div>
+                                    </div>
+                                    <div class="status-badge-container">
+                                        <span class="status-badge" id="ext-status">Approved</span>
+                                    </div>
+                                </div>
+
+                                <!-- Tabs: Structured vs Raw -->
+                                <div class="result-tabs-row">
+                                    <button class="result-tab active" id="tab-structured" onclick="toggleResultView('structured')">Structured Data</button>
+                                    <button class="result-tab" id="tab-raw" onclick="toggleResultView('raw')">Raw Extracted Text</button>
+                                </div>
+
+                                <!-- Structured view -->
+                                <div class="result-view-panel" id="result-structured-view">
+                                    <div class="meta-grid">
+                                        <div class="meta-item"><strong>Invoice No:</strong> <span id="ext-inv-no">---</span></div>
+                                        <div class="meta-item"><strong>Date:</strong> <span id="ext-date">---</span></div>
+                                        <div class="meta-item"><strong>Bill To:</strong> <span id="ext-bill-to">---</span></div>
+                                        <div class="meta-item"><strong>Primary Item:</strong> <span id="ext-material">---</span></div>
+                                        <div class="meta-item"><strong>Quantity:</strong> <span id="ext-qty">---</span></div>
+                                        <div class="meta-item"><strong>Rate:</strong> <span id="ext-unit-price">---</span></div>
+                                        <div class="meta-item"><strong>GST (Tax):</strong> <span id="ext-tax">---</span></div>
+                                        <div class="meta-item"><strong>Grand Total:</strong> <strong style="color: var(--color-bg-dark);" id="ext-total">---</strong></div>
+                                        <div class="meta-item"><strong>Payment Terms:</strong> <span id="ext-terms">---</span></div>
+                                    </div>
+
+                                    <h4 style="margin: 20px 0 10px 0;">Item Matrix Ledger</h4>
+                                    <div class="table-container">
+                                        <table class="custom-table" style="font-size: 0.85rem;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Description</th>
+                                                    <th>Qty</th>
+                                                    <th>Unit Rate</th>
+                                                    <th>Total Price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ext-items-tbody">
+                                                <!-- items dynamically listed -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- Raw text view -->
+                                <div class="result-view-panel hidden" id="result-raw-view">
+                                    <pre class="terminal-logs" id="ext-raw-text">Loading text trace...</pre>
+                                </div>
+
+                                <!-- Action sync row -->
+                                <div class="result-action-row">
+                                    <button class="btn btn-dark" id="btn-sync-gateway" onclick="syncActiveInvoiceToERP()">⚡ Sync to ERP Gateway</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 3: ERP DATABASE view with CRUD -->
+                <section class="view-section hidden" id="view-database">
+                    <div class="view-title-block-row">
+                        <div class="view-title-block">
+                            <h1 class="view-title">ERP Core Ledgers Database</h1>
+                            <p class="view-subtitle">Manage extracted invoices, search metadata, filter status anomalies, and delete records.</p>
+                        </div>
+                    </div>
+
+                    <!-- DATABASE CONTROLS FILTER BAR -->
+                    <div class="filter-controls-bar">
+                        <input type="text" class="filter-input-search" id="db-search" placeholder="Search by Invoice ID, Vendor, Date..." onkeyup="loadDatabaseInvoices()">
+                        
+                        <select class="filter-select" id="db-filter-status" onchange="loadDatabaseInvoices()">
+                            <option value="">All Statuses</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Needs Review">Needs Review</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+
+                        <select class="filter-select" id="db-filter-sync" onchange="loadDatabaseInvoices()">
+                            <option value="">All Sync States</option>
+                            <option value="Synced">Synced</option>
+                            <option value="Pending">Pending</option>
+                        </select>
+                    </div>
+
+                    <!-- LEDGER TABLE -->
+                    <div class="dashboard-column-card">
+                        <div class="table-container">
+                            <table class="custom-table" id="db-invoices-table">
+                                <thead>
+                                    <tr>
+                                        <th>Invoice ID</th>
+                                        <th>Vendor Name</th>
+                                        <th>Invoice Date</th>
+                                        <th>Tax Amount</th>
+                                        <th>Total Amount</th>
+                                        <th>AI Confidence</th>
+                                        <th>Validation Status</th>
+                                        <th>Sync Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="db-invoices-tbody">
+                                    <!-- Injected via script.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 4: VENDOR MANAGEMENT -->
+                <section class="view-section hidden" id="view-vendors">
+                    <div class="view-title-block-row">
+                        <div class="view-title-block">
+                            <h1 class="view-title">Vendor Account Directory</h1>
+                            <p class="view-subtitle">Maintain vendor profile indexes, GST registrations, and cumulative spending accounts.</p>
+                        </div>
+                        <button class="btn btn-dark" onclick="showAddVendorModal()">➕ Add Vendor Profile</button>
+                    </div>
+
+                    <!-- VENDOR TABLE -->
+                    <div class="dashboard-column-card">
+                        <div class="table-container">
+                            <table class="custom-table" id="vendors-table">
+                                <thead>
+                                    <tr>
+                                        <th>Vendor ID</th>
+                                        <th>Vendor Name</th>
+                                        <th>GST Number</th>
+                                        <th>Contact Email</th>
+                                        <th>Total Invoices</th>
+                                        <th>Accumulated Purchase</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="vendors-tbody">
+                                    <!-- Injected via script.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 5: ANALYTICS charts -->
+                <section class="view-section hidden" id="view-analytics">
+                    <div class="view-title-block">
+                        <h1 class="view-title">Enterprise Expense Analytics</h1>
+                        <p class="view-subtitle">Interactive analysis charts depicting vendor spending, monthly expenditure trends, and ledger health metrics.</p>
+                    </div>
+
+                    <!-- STATISTICS KPI ROW -->
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <span class="metric-label">Total Processed Sum</span>
+                            <div class="metric-value" id="analytics-processed-sum">₹0.00</div>
+                            <div class="metric-growth">Approved gross volume</div>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Average AI Accuracy</span>
+                            <div class="metric-value" id="analytics-accuracy">98.3%</div>
+                            <div class="metric-growth">OCR confidence rating</div>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Growth Rate</span>
+                            <div class="metric-value" id="analytics-growth">+12.4%</div>
+                            <div class="metric-growth">Month-on-Month surge</div>
+                        </div>
+                    </div>
+
+                    <!-- GRAPH CHART CANVAS ROW -->
+                    <div class="charts-layout-row">
+                        <!-- Line Chart: Monthly Expenses -->
+                        <div class="chart-canvas-card">
+                            <h3>Monthly Expense Volume</h3>
+                            <div class="canvas-wrapper">
+                                <canvas id="chart-monthly-expenses"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Pie Chart: Vendor Spending Share -->
+                        <div class="chart-canvas-card">
+                            <h3>Vendor Expenditure Share</h3>
+                            <div class="canvas-wrapper">
+                                <canvas id="chart-vendor-spending"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Doughnut Chart: Invoice Status -->
+                        <div class="chart-canvas-card">
+                            <h3>Invoice Verification Status</h3>
+                            <div class="canvas-wrapper">
+                                <canvas id="chart-invoice-status"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 6: AUDIT LOG SYSTEM -->
+                <section class="view-section hidden" id="view-logs">
+                    <div class="view-title-block">
+                        <h1 class="view-title">System Audit Log Ledger</h1>
+                        <p class="view-subtitle">Real-time ledger audit trail tracking authentication steps, extraction validation overrides, and database updates.</p>
+                    </div>
+
+                    <div class="audit-logs-card">
+                        <div class="terminal-logs-header">
+                            <div class="terminal-circle red"></div>
+                            <div class="terminal-circle yellow"></div>
+                            <div class="terminal-circle green"></div>
+                            <span class="terminal-title">audit_ledger_console.sh</span>
+                        </div>
+                        <pre class="terminal-logs" id="audit-logs-terminal">Loading audit entries...
+                        </pre>
+                    </div>
+                </section>
+
+                <!-- VIEW 7: SETTINGS configurations -->
+                <section class="view-section hidden" id="view-settings">
+                    <div class="view-title-block">
+                        <h1 class="view-title">System & Gateway Settings</h1>
+                        <p class="view-subtitle font-sm">Configure Gemini AI API endpoint authorization keys and toggle simulator states.</p>
+                    </div>
+
+                    <div class="settings-form-layout">
+                        <!-- Profile details -->
+                        <div class="dashboard-column-card">
+                            <h3 class="card-headline">Active User Profile</h3>
+                            <div class="settings-row">
+                                <div class="settings-item">
+                                    <strong>Username:</strong>
+                                    <span id="settings-username">admin</span>
+                                </div>
+                                <div class="settings-item" style="margin-top: 10px;">
+                                    <strong>Access Group Role:</strong>
+                                    <span class="status-badge" id="settings-role">ADMIN</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Gemini AI Configuration -->
+                        <div class="dashboard-column-card" style="margin-top: 20px;">
+                            <h3 class="card-headline">Gemini AI Model Core Configuration</h3>
+                            
+                            <form id="settings-form" onsubmit="saveSystemSettings(event)">
+                                <div class="input-group" style="margin-top: 15px;">
+                                    <label class="form-label" style="display: block; margin-bottom: 8px;">Google Gemini API Key</label>
+                                    <input type="password" class="form-input" id="settings-api-key" placeholder="Enter key starting with AIzaSy..." style="width: 100%;">
+                                    <small style="color: var(--color-text-muted); display: block; margin-top: 5px;">Configure your API Key from Google AI Studio. Leave empty to run in Sandbox simulator mode.</small>
+                                </div>
+
+
+
+                                <!-- Sandbox toggle removed -->
+
+                                <button type="submit" class="btn btn-dark" style="margin-top: 25px;">Save Configurations</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <!-- ADD VENDOR PROFILE MODAL -->
+    <div class="modal hidden" id="vendor-modal">
+        <div class="modal-card">
+            <h2 class="form-title" id="vendor-modal-title">New Vendor Profile</h2>
+            <form id="vendor-form" onsubmit="handleVendorSubmit(event)">
+                <input type="hidden" id="vendor-id">
+                
+                <div class="input-group">
+                    <label class="form-label">Vendor Name *</label>
+                    <input type="text" class="form-input" id="vendor-name" required placeholder="e.g. UltraTech Cement Ltd.">
+                </div>
+
+                <div class="input-group">
+                    <label class="form-label">GST registration *</label>
+                    <input type="text" class="form-input" id="vendor-gst" required placeholder="e.g. 27AAACU1205K1ZS">
+                </div>
+
+                <div class="input-group">
+                    <label class="form-label">Contact Email</label>
+                    <input type="email" class="form-input" id="vendor-contact" placeholder="e.g. billing@vendor.com">
+                </div>
+
+                <div class="modal-actions-row">
+                    <button type="button" class="btn btn-light" onclick="hideAddVendorModal()">Cancel</button>
+                    <button type="submit" class="btn btn-dark">Save Profile</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- VIEW INVOICE OVERLAY DETAILED DIALOG MODAL -->
+    <div class="modal hidden" id="invoice-details-modal">
+        <div class="modal-card" style="max-width: 800px; max-height: 85vh; overflow-y: auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px;">
+                <h2 class="form-title" style="margin-bottom: 0;" id="details-modal-title">Invoice: ---</h2>
+                <div class="status-badge" id="details-modal-status">---</div>
+            </div>
+
+            <!-- Details grid -->
+            <div class="meta-grid" style="margin-bottom: 25px;">
+                <div class="meta-item"><strong>Vendor Name:</strong> <span id="details-vendor">---</span></div>
+                <div class="meta-item"><strong>Invoice Number:</strong> <span id="details-inv-no">---</span></div>
+                <div class="meta-item"><strong>Invoice Date:</strong> <span id="details-date">---</span></div>
+                <div class="meta-item"><strong>Tax (GST):</strong> <span id="details-tax">---</span></div>
+                <div class="meta-item"><strong>Grand Total:</strong> <strong id="details-total">---</strong></div>
+                <div class="meta-item"><strong>AI Accuracy:</strong> <span id="details-confidence">---</span></div>
+                <div class="meta-item"><strong>Sync Status:</strong> <span id="details-sync">---</span></div>
+                <div class="meta-item"><strong>Created On:</strong> <span id="details-created">---</span></div>
+            </div>
+
+            <h3>Line Item Details</h3>
+            <div class="table-container" style="margin-bottom: 25px;">
+                <table class="custom-table" style="font-size: 0.85rem;">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Qty</th>
+                            <th>Unit Price</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="details-items-tbody">
+                        <!-- injected items -->
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Audit raw text Reconstruction</h3>
+            <pre class="terminal-logs" style="max-height: 200px; overflow-y: auto; font-size: 0.8rem; margin-bottom: 25px;" id="details-raw-text">No raw text transcript reconstructed.</pre>
+
+            <div class="modal-actions-row" style="border-top: 1px solid #e2e8f0; padding-top: 15px;">
+                <button type="button" class="btn btn-dark" onclick="hideInvoiceDetailsModal()">Close Details</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core SPA Logic Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConstructAI ERP - Secure Login Gateway</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="login-body">
+
+    <!-- Center Card layout -->
+    <div class="login-wrapper">
+
+        <!-- Left Branding Section -->
+        <div class="left-panel">
+            <div class="visual-header">
+                <div>
+                    <div class="brand-logo">ConstructAI<span>.</span></div>
+                    <div class="brand-subtitle">ERP SOLUTIONS</div>
+                </div>
+                <div class="visual-nav">
+                    <a href="#" onclick="alert('ConstructAI ERP Gateway - Enterprise Construction Logistics')"></a>
+                    <a href="#" onclick="alert('ConstructAI ERP v1.0.0 - Built for Enterprise AI Expense Parsing')"></a>
+                    <a href="#" onclick="alert('Contact: systems@constructai-erp.com')"></a>
+                </div>
+            </div>
+
+            <div class="visual-bottom">
+                <div class="welcome-badge">WELCOME BACK</div>
+                <h1 class="welcome-heading welcome-text">AI-Powered<br>ERP Platform</h1>
+                <p class="visual-description">Smart automation for construction businesses and enterprises.</p>
+
+                <!-- Bottom Feature Cards row -->
+                <div class="feature-cards-row">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                                </path>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                            </svg>
+                        </div>
+                        <span class="feature-title">Automate<br>Workflows</span>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                        </div>
+                        <span class="feature-title">Real-time<br>Analytics</span>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
+                        <span class="feature-title">Secure<br>& Reliable</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Forms Section -->
+        <div class="right-panel">
+
+            <!-- Alerts drawer feedback -->
+            <div class="alert" id="auth-alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <span id="auth-alert-msg"></span>
+            </div>
+
+            <!-- LOGIN STATE -->
+            <div class="login-card form-container" id="login-container">
+                <div class="form-header">
+                    <h2 class="form-title">Log in</h2>
+                    <p class="form-subtitle">Access your ERP account</p>
+                </div>
+
+                <form id="login-form">
+                    <!-- Username -->
+                    <div class="input-group">
+                        <div class="input-icon-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <input type="text" class="form-input form-input-icon" id="login-username" placeholder="Username"
+                            required>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="input-group">
+                        <div class="input-icon-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </div>
+                        <input type="password" class="form-input form-input-icon" id="login-password"
+                            placeholder="Password" required>
+                        <div class="input-icon-right" onclick="togglePasswordVisibility('login-password', this)">
+                            <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Options -->
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="login-remember"> Remember Me
+                        </label>
+                        <a href="#" class="forgot-password"
+                            onclick="alert('For password resets, contact system admin at admin@constructai.com')">Forgot
+                            Password?</a>
+                    </div>
+
+                    <!-- Actions -->
+                    <button type="submit" class="btn btn-dark" id="btn-login-submit">Log in</button>
+
+                    <div class="divider">Or</div>
+
+                    <button type="button" class="btn btn-outlined" onclick="toggleAuthMode('signup')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="8.5" cy="7" r="4"></circle>
+                            <line x1="20" y1="8" x2="20" y2="14"></line>
+                            <line x1="23" y1="11" x2="17" y2="11"></line>
+                        </svg>
+                        Sign up
+                    </button>
+                </form>
+            </div>
+
+            <!-- SIGNUP STATE -->
+            <div class="login-card form-container hidden" id="signup-container">
+                <div class="form-header">
+                    <h2 class="form-title">Sign up</h2>
+                    <p class="form-subtitle">Create a new ledger account for ConstructAI ERP</p>
+                </div>
+
+                <form id="signup-form">
+                    <!-- Email -->
+                    <div class="input-group">
+                        <div class="input-icon-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                </path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </div>
+                        <input type="email" class="form-input form-input-icon" id="signup-email"
+                            placeholder="Email Address" required>
+                    </div>
+
+                    <!-- Username -->
+                    <div class="input-group">
+                        <div class="input-icon-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <input type="text" class="form-input form-input-icon" id="signup-username"
+                            placeholder="Username" required>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="input-group">
+                        <div class="input-icon-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </div>
+                        <input type="password" class="form-input form-input-icon" id="signup-password"
+                            placeholder="Create Password" required>
+                        <div class="input-icon-right" onclick="togglePasswordVisibility('signup-password', this)">
+                            <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Role Selection -->
+                    <div class="input-group">
+                        <div class="input-icon-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <select class="form-input form-input-icon" id="signup-role">
+                            <option value="EMPLOYEE">Employee Role (Upload/View only)</option>
+                            <option value="ADMIN">Administrator Role (Full access)</option>
+                        </select>
+                    </div>
+
+                    <!-- Actions -->
+                    <button type="submit" class="btn btn-dark" id="btn-signup-submit">Sign up</button>
+
+                    <div class="divider">Or</div>
+
+                    <button type="button" class="btn btn-outlined" onclick="toggleAuthMode('login')">Log in</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Login Page JS Script hooks -->
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // Automatic session redirect
+        if (localStorage.getItem("access_token")) {
+            window.location.href = "dashboard.html";
+        }
+    </script>
+</body>
+
+</html>
